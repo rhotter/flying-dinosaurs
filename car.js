@@ -4,9 +4,9 @@ const CAR_LENGTH = 50;
 const POS_DICT = {
   'N': [ WIDTH/2 - DOT_WIDTH/2 - ((ROAD_WIDTH - DOT_WIDTH)/2 - CAR_WIDTH)/2 - CAR_WIDTH, get_y(HEIGHT)],
   'S': [ WIDTH/2 + DOT_WIDTH/2 +((ROAD_WIDTH - DOT_WIDTH)/2 - CAR_WIDTH)/2, get_y(CAR_LENGTH)],
-  'E': [0, get_y(HEIGHT/2)]
-  // 'S':
-  // 'W': 
+  'E': [0, get_y(HEIGHT/2 - DOT_WIDTH/2 - ((ROAD_WIDTH - DOT_WIDTH)/2 - CAR_WIDTH)/2)],
+  'W': [WIDTH - CAR_LENGTH, get_y(HEIGHT/2 + DOT_WIDTH/2 + ((ROAD_WIDTH - DOT_WIDTH)/2 - CAR_WIDTH) + CAR_WIDTH/2)]
+
 }
 const SIZE_DICT = {
   'E': [CAR_WIDTH, CAR_LENGTH],
