@@ -1,23 +1,18 @@
-let myCar;
-let arr = [];
-dirs = ['N', 'E', 'S', 'W'];
+let emitters = [];
+dirs = ['E', 'W'];
 function setup() {
   createCanvas(WIDTH, HEIGHT);
-//  myCar = new Car(50, 397, [0,1], 4);
-	eCar = new Car('E', 4);
-	for (let i=0; i < 10; i++){
-		var car = new Car(dirs[i % 4],4);
-		arr.push(car);
-	}
-	// wCar = new Car('W', 4);
+  for (let i = 0; i < dirs.length; i++) {
+    emitters.push(new Emitter(dirs[i]));
+  }
 }
 
 function draw() {
   drawRoads();
-  for (let i=0; i < 10; i++){
-		arr[i].drive();
-		arr[i].display();
-	}
-  // wCar.drive();
-  // wCar.display();
+  for (let i=0; i<dirs.length; i++) {
+    emitters[i].randomEmit();
+    emitters[i].driveAll();
+    emitters[i].displayAll();
+  }
 }
+// queueing theory

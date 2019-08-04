@@ -33,3 +33,9 @@ function drawRoads() {
         dotYPosition += DOT_LENGTH + DOT_SPACING;
     }
 }
+
+function crashCheck() {
+    for (let i = 0; i < cars.length; i++) {
+        
+    }
+}
