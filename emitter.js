@@ -2,10 +2,10 @@ class Emitter {
     constructor(dir) {
         this.direction = dir;
         this.cars = [];
-        this.waitTime = this.randomWaitTime();
         this.carSpeed = 4;
         this.MIN_DIST_BETWEEN_CARS = 5;
-        this.MIN_WAIT_TIME = CAR_LENGTH/this.carSpeed + 5;
+        this.MIN_WAIT_TIME = (3/2*CAR_LENGTH)/this.carSpeed;
+        this.waitTime = this.MIN_WAIT_TIME;
     }
     randomEmit() {
         if (this.waitTime >= this.MIN_WAIT_TIME) {
@@ -31,6 +31,6 @@ class Emitter {
     }
 
     randomWaitTime() {
-        return -int(random(0,50));
+        return -int(random(0,150)/this.carSpeed);
     }
 }

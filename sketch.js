@@ -1,5 +1,7 @@
+
 let emitters = [];
-dirs = ['E', 'W'];
+dirs = ['N','S','E', 'W'];
+
 function setup() {
   createCanvas(WIDTH, HEIGHT);
   for (let i = 0; i < dirs.length; i++) {
@@ -14,5 +16,5 @@ function draw() {
     emitters[i].driveAll();
     emitters[i].displayAll();
   }
+  crashCheck(emitters);
 }
-// queueing theory

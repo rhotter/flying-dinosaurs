@@ -18,8 +18,8 @@ class Car {
     this.DIR_DICT = {
       'E': [1,0],
       'W': [-1, 0],
-      'S': [0,1],
-      'N': [0,-1]
+      'N': [0,1],
+      'S': [0,-1]
     }
 
     this.xpos = this.POS_DICT[pos][0];
@@ -28,8 +28,8 @@ class Car {
     //this.ypos = random(height);
     this.speed = speed;
     this.color = color(255,180,0);
-    this.width = this.SIZE_DICT[pos][0];
-    this.length = this.SIZE_DICT[pos][1];
+    this.height = this.SIZE_DICT[pos][0];
+    this.width = this.SIZE_DICT[pos][1];
 
   }
   
@@ -45,7 +45,18 @@ class Car {
       }
     return false;
   }
-
+  left() {
+    return this.xpos;
+  }
+  right() {
+    return this.xpos + this.width;
+  }
+  top() {
+    return this.ypos;
+  }
+  bottom() {
+    return this.ypos + this.height;
+  }
  
   // // brake method
   // this.brake = function()
@@ -62,6 +73,6 @@ class Car {
     // body of the car
     fill(this.color);
     rectMode(CORNER);
-    rect(this.xpos, this.ypos, this.length, this.width);
+    rect(this.xpos, this.ypos, this.width, this.height);
   }
 }
