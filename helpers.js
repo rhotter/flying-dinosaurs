@@ -34,8 +34,29 @@ function drawRoads() {
     }
 }
 
-function crashCheck() {
-    for (let i = 0; i < cars.length; i++) {
-        
-    }
+function intersect(a, b) {
+  return (a.left() <= b.right() &&
+          b.left() <= a.right() &&
+          a.top() <= b.bottom() &&
+          b.top() <= a.bottom())
 }
+
+function intersectArr(arr1, arr2) {
+	for (let i=0; i<arr1.length; i++){
+		for (let j=0; j<arr2.length; j++){
+			if (intersect(arr1[i], arr2[j])) {
+				arr1[i].color = color(255,0,0);
+				arr2[j].color = color(255,0,0);
+			}
+		}
+	}
+}
+
+function crashCheck(emitters) {
+  intersectArr(emitters[0].cars.concat(emitters[1].cars), emitters[2].cars.concat(emitters[3].cars));
+}
+
+
+
+
+
