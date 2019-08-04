@@ -20,14 +20,14 @@ function drawRoads() {
     rect(0, HEIGHT/2 - ROAD_WIDTH/2, WIDTH, ROAD_WIDTH);
 
     // draw dots
-    let dotXPosition = 0;
+    let dotXPosition = 5;
     fill(255,180,0);
     while (dotXPosition < WIDTH) {
         rect(dotXPosition, HEIGHT/2 - DOT_WIDTH/2, DOT_LENGTH, DOT_WIDTH);
         dotXPosition += DOT_LENGTH + DOT_SPACING;
     }
 
-    let dotYPosition = 0;
+    let dotYPosition = 5;
     while (dotYPosition < HEIGHT) {
         rect(WIDTH/2 - DOT_WIDTH/2, dotYPosition, DOT_WIDTH, DOT_LENGTH);
         dotYPosition += DOT_LENGTH + DOT_SPACING;
