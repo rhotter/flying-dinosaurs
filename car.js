@@ -14,11 +14,17 @@ const SIZE_DICT = {
   'N': [CAR_LENGTH, CAR_WIDTH],
   'S': [CAR_LENGTH, CAR_WIDTH],
 }
+const DIR_DICT = {
+  'E': [1,0],
+  'W': [-1, 0],
+  'S': [0,1],
+  'N': [0,-1]
+}
 class Car {
-  constructor(pos, dir, speed) {
+  constructor(pos, speed) {
     this.xpos = POS_DICT[pos][0];
     this.ypos = POS_DICT[pos][1];
-    this.direction = dir;
+    this.direction = DIR_DICT[pos];
     //this.ypos = random(height);
     this.speed = speed;
     this.color = color(255,180,0);
@@ -28,9 +34,11 @@ class Car {
   }
   
   drive() {
-    this.xpos = this.xpos % WIDTH;
+    this.xpos = (this.xpos + WIDTH) % WIDTH;
+    this.ypos = (this.ypos + HEIGHT) % HEIGHT;
     this.xpos += this.speed * this.direction[0];
     this.ypos += this.speed * this.direction[1];
+
   }
  
   // // brake method
