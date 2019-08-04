@@ -28,8 +28,8 @@ class Car {
     //this.ypos = random(height);
     this.speed = speed;
     this.color = color(random(0,255),random(150,255),random(150,255));
-    this.width = this.SIZE_DICT[pos][0];
-    this.length = this.SIZE_DICT[pos][1];
+    this.height = this.SIZE_DICT[pos][0];
+    this.width = this.SIZE_DICT[pos][1];
 
   }
   
