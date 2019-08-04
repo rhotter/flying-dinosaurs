@@ -1,3 +1,3 @@
-function normalCoordinatesToP5(y) {
-    return HEIGHT - y;
+function y(y_) {
+    return HEIGHT - y_;
 }
