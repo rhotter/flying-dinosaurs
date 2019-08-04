@@ -1,5 +1,5 @@
-const CAR_WIDTH = 40;
-const CAR_LENGTH = 80;
+const CAR_WIDTH = 25;
+const CAR_LENGTH = 50;
 
 class Car {
   constructor(x, y, dir, speed) {
@@ -13,9 +13,7 @@ class Car {
   }
   
   drive() {
-    if (this.xpos > WIDTH) {
-      this.xpos = 0;
-    }
+    this.xpos = this.xpos % WIDTH;
     this.xpos += this.speed * this.direction[0];
   }
  

@@ -1,4 +1,4 @@
-const ROAD_WIDTH = 100;
+const ROAD_WIDTH = 120;
 const DOT_SPACING = 10;
 const DOT_LENGTH = 10;
 const DOT_WIDTH = 5;
