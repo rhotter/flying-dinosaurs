@@ -6,8 +6,8 @@ class Car {
     this.POS_DICT = {
       'N': [ WIDTH/2 - DOT_WIDTH/2 - ((ROAD_WIDTH - DOT_WIDTH)/2 - CAR_WIDTH)/2 - CAR_WIDTH, get_y(HEIGHT)],
       'S': [ WIDTH/2 + DOT_WIDTH/2 +((ROAD_WIDTH - DOT_WIDTH)/2 - CAR_WIDTH)/2, get_y(CAR_LENGTH)],
-      'E': [0, get_y(HEIGHT/2 - DOT_WIDTH/2 - ((ROAD_WIDTH - DOT_WIDTH)/2 - CAR_WIDTH)/2)],
-      'W': [WIDTH - CAR_LENGTH, get_y(HEIGHT/2 + DOT_WIDTH/2 + ((ROAD_WIDTH - DOT_WIDTH)/2 - CAR_WIDTH) + CAR_WIDTH/2)]
+      'E': [-CAR_LENGTH, get_y(HEIGHT/2 - DOT_WIDTH/2 - ((ROAD_WIDTH - DOT_WIDTH)/2 - CAR_WIDTH)/2)],
+      'W': [WIDTH, get_y(HEIGHT/2 + DOT_WIDTH/2 + ((ROAD_WIDTH - DOT_WIDTH)/2 - CAR_WIDTH) + CAR_WIDTH/2)]
     }
     this.SIZE_DICT = {
       'E': [CAR_WIDTH, CAR_LENGTH],
@@ -27,7 +27,7 @@ class Car {
     this.direction = this.DIR_DICT[pos];
     //this.ypos = random(height);
     this.speed = speed;
-    this.color = color(255,180,0);
+    this.color = color(random(0,255),random(150,255),random(150,255));
     this.width = this.SIZE_DICT[pos][0];
     this.length = this.SIZE_DICT[pos][1];
 
