@@ -2,13 +2,16 @@ const ROAD_WIDTH = 100;
 const DOT_SPACING = 10;
 const DOT_LENGTH = 10;
 const DOT_WIDTH = 5;
+const WIDTH = 1200;
+const HEIGHT = 700;
 
-function y(y_) {
+function get_y(y_) {
     return HEIGHT - y_;
 }
 
 function drawRoads() {
-    fill(256);
+    background(40);
+    fill(100);
     strokeWeight(0)
     // horizontal road
     rect(WIDTH/2 - ROAD_WIDTH/2, 0, ROAD_WIDTH, HEIGHT);

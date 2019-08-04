@@ -1,12 +1,11 @@
-const WIDTH = 1200;
-const HEIGHT = 700;
-
+let myCar;
 function setup() {
   createCanvas(WIDTH, HEIGHT);
-  background(40);
-  drawRoads();
+  myCar = new Car(50, 400, [0,1], 4);
 }
 
 function draw() {
-
+  drawRoads();
+  myCar.drive();
+  myCar.display();
 }
