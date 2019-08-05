@@ -55,8 +55,8 @@ class Car {
     return false;
   }
 
-  isAtIntersection() {
-    return intersect(requester, car);
+  isAtIntersection(requester) {
+    return intersect(requester, this);
   }
   getPosition() {
     return {
