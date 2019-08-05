@@ -1,9 +1,8 @@
 class Emitter {
-    constructor(dir, requester) {
+    constructor(dir, requester, carSpeed) {
         this.direction = dir;
         this.cars = [];
-        this.carSpeed = 4;
-        this.MIN_DIST_BETWEEN_CARS = 5;
+        this.carSpeed = carSpeed;
         this.MIN_WAIT_TIME = (3/2*CAR_LENGTH)/this.carSpeed;
         this.waitTime = this.MIN_WAIT_TIME;
         this.requester = requester;
@@ -38,9 +37,7 @@ class Emitter {
     atIntersection(){
         for (let i=0; i<this.cars.length; i++) {
             if (this.cars[i].isAtIntersection(this.requester) && !this.cars[i].hasRequestedReservation){
-                console.log("HELLO");
-                this.cars[i].color = color(0,0,0);
-                reservationResponse = this.cars[i].requestReservation();
+                let reservationResponse = this.cars[i].requestReservation(this.requester);
                 if (!reservationResponse) {
                     this.cars[i].stop();
                 }
@@ -48,22 +45,3 @@ class Emitter {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

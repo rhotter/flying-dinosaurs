@@ -4,7 +4,7 @@ const DOT_LENGTH = 10;
 const DOT_WIDTH = 5;
 const WIDTH = 1200;
 const HEIGHT = 700;
-
+const MAX_SPEED = 4;
 
 function get_y(y_) {
     return HEIGHT - y_;
@@ -35,24 +35,26 @@ function drawRoads() {
     }
 }
 
+
 function intersect(a, b) {
   aPos = a.getPosition();
   bPos = b.getPosition();
-	console.log(aPos, bPos)
-
-  return (aPos.left <= bPos.right &&
-          bPos.left <= aPos.right &&
-          aPos.top <= bPos.bottom &&
-          bPos.top <= aPos.bottom)
+  if (aPos.left >= bPos.right || bPos.left >= aPos.right) {
+      return false;
+  }
+  if (aPos.top <= bPos.bottom || bPos.top <= aPos.bottom) {
+      return false;
+  }
+  return true;
 }
 
 function intersectArr(arr1, arr2) {
 	for (let i=0; i<arr1.length; i++){
 		for (let j=0; j<arr2.length; j++){
-			// if (intersect(arr1[i], arr2[j])) {
-			// 	arr1[i].color = color(255,0,0);
-			// 	arr2[j].color = color(255,0,0);
-			// }
+			if (intersect(arr1[i], arr2[j])) {
+				arr1[i].color = color(255,0,0);
+				arr2[j].color = color(255,0,0);
+			}
 		}
 	}
 }

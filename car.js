@@ -62,8 +62,8 @@ class Car {
     return {
       "left": this.xpos,
       "right": this.xpos + this.width,
-      "top": this.ypos,
-      "bottom": this.ypos + this.height
+      "top": get_y(this.ypos),
+      "bottom": get_y(this.ypos + this.height)
     }
   }
  
@@ -83,5 +83,26 @@ class Car {
     fill(this.color);
     rectMode(CORNER);
     rect(this.xpos, this.ypos, this.width, this.height);
+  }
+
+  requestReservation(requester) {
+    this.hasRequestedReservation = true;
+    let futurePositions = this.calculateFuturePositions();
+    requester.request(this, futurePositions);
+    return false;
+  }
+
+  calculateFuturePositions() {
+    let positions = [];
+    let numFrames = (ROAD_WIDTH+CAR_LENGTH)/this.speed;
+    
+    let futureXPos = this.xpos;
+    let futureYPos = this.ypos;
+    for (let i=0; i<numFrames; i++) {
+      futureXPos += this.direction[0]*this.speed;
+      futureYPos += this.direction[1]*this.speed;
+      positions.push([futureXPos, futureYPos]);
+    }
+    return positions;
   }
 }
