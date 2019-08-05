@@ -35,10 +35,12 @@ function drawRoads() {
 }
 
 function intersect(a, b) {
-  return (a.left() <= b.right() &&
-          b.left() <= a.right() &&
-          a.top() <= b.bottom() &&
-          b.top() <= a.bottom())
+  aPos = a.getPosition();
+  bPos = b.getPosition();
+  return (aPos.left <= bPos.right &&
+          bPos.left <= aPos.right &&
+          aPos.top <= bPos.bottom &&
+          bPos.top <= aPos.bottom)
 }
 
 function intersectArr(arr1, arr2) {

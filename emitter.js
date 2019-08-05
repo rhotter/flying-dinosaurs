@@ -33,4 +33,34 @@ class Emitter {
     randomWaitTime() {
         return -int(random(0,150)/this.carSpeed);
     }
+
+    atIntersection(){
+        for (let i=0; i<this.cars.length; i++) {
+            if (this.cars[i].isAtIntersection() && !this.cars[i].hasRequestedReservation){
+                reservationResponse = this.cars[i].requestReservation();
+                if (!reservationResponse) {
+                    this.cars[i].stop();
+                }
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -25,14 +25,23 @@ class Car {
     this.xpos = this.POS_DICT[pos][0];
     this.ypos = this.POS_DICT[pos][1];
     this.direction = this.DIR_DICT[pos];
+    this.MAX_SPEED = 4;
     //this.ypos = random(height);
-    this.speed = speed;
+    this.speed = this.MAX_SPEED;
     this.color = color(random(0,255),random(150,255),random(150,255));
     this.height = this.SIZE_DICT[pos][0];
     this.width = this.SIZE_DICT[pos][1];
 
+    this.hasRequestedReservation = false;
+
   }
   
+  stop() {
+    this.speed = 0;
+  }
+  go() {
+    this.speed = this.MAX_SPEED;
+  }
   drive() {
     this.xpos += this.speed * this.direction[0];
     this.ypos += this.speed * this.direction[1];
@@ -45,17 +54,17 @@ class Car {
       }
     return false;
   }
-  left() {
-    return this.xpos;
+
+  isAtIntersection() {
+    return intersect(requester, car);
   }
-  right() {
-    return this.xpos + this.width;
-  }
-  top() {
-    return this.ypos;
-  }
-  bottom() {
-    return this.ypos + this.height;
+  getPosition() {
+    return {
+      "left": this.xpos,
+      "right": this.xpos + this.width,
+      "top": this.ypos,
+      "bottom": this.ypos + this.height
+    }
   }
  
   // // brake method
