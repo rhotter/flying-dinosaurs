@@ -1,46 +1,113 @@
 class Requester {
-	constructor(left, right, bottom, top, carSpeed) {
-		this.pos = {
-			"left": left,
-			"right": right,
-			"top": top,
-			"bottom": bottom
-		}
+	constructor(pos, carSpeed) {
+		this.pos = pos;
 		this.NUM_FRAMES = Math.floor((ROAD_WIDTH+CAR_LENGTH)/carSpeed);
-		this.GRID_WIDTH = 4
-		this.futureArr = math.zeros(this.NUM_FRAMES, this.GRID_WIDTH, this.GRID_WIDTH);
+		this.GRID_WIDTH = 4;
+		this.futureArr = this.initZeros(this.NUM_FRAMES, this.GRID_WIDTH, this.GRID_WIDTH);
 		this.futureRequests = [];
 	}
 	getPosition() {
 		return this.pos;
 	}
 
-	fillFutureArr(futurePositions){
+	fillFutureArr(futurePositions, car){
 		for (let i=0; i<futurePositions.length; i++) {
-			let index = this.carPosToGridIndex(futurePositions[i][0], futurePositions[i][1]);
-			// math.subset(this.futureArr, [i, index[0], index[1]], 1);
+			let indeces = this.carPosToGridIndeces(futurePositions[i][0], futurePositions[i][1], car);
+			for (let j=0; j<indeces.length; j++) {
+				let index = indeces[j];
+				if (index) {
+					this.futureArr[i][index[0]][index[1]] = 1;
+				}
+			}
 		}
 	}
 
 	request(car, futurePositions) {
-		let canGo = true;
-		console.log(this.futureArr)
 		for (let i=0; i<futurePositions.length; i++) {
-			let index = this.carPosToGridIndex(futurePositions[i][0], futurePositions[i][1]);
-			if (this.futureArr.get([i, index[0], index[1]])) {
-				this.futureRequests.push({"car": car, "futurePositions": futurePositions});
-				canGo = false;
-				break;
+			let indeces = this.carPosToGridIndeces(futurePositions[i][0], futurePositions[i][1], car);
+			for (let j=0; j<indeces.length; j++) {
+				let index = indeces[j];
+				if (index && this.futureArr[i][index[0]][index[1]]) {
+					this.futureRequests.push({"car": car, "futurePositions": futurePositions});
+					return false;
+				}
+			}
+			
+		}
+		this.fillFutureArr(futurePositions, car);
+		car.go();
+		return true;
+	}
+
+	initZeros(xDim, yDim, zDim) {
+		let arr = [];
+		for (let i=0; i<xDim; i++) {
+			let yArr = []
+			for (let j=0; j<yDim; j++) {
+				let zArr = [];
+				for (let k=0; k<zDim; k++) {
+					zArr.push(0)
+				}
+				yArr.push(zArr);
+			}
+			arr.push(yArr);
+		}
+		return arr;
+	}
+
+	smooth(a,b) {
+		let indeces = []
+		for (let i = a[0]; i <= b[0]; i++) {
+			for (let j = a[1]; j <= b[1]; j++) {
+				indeces.push([i, j])
 			}
 		}
-		if (canGo) {
-			this.fillFutureArr(futurePositions);
-			car.go();
-		}
+		return indeces;
 	}
+
 	carPosToGridIndex(x, y) {
-		let a =  [Math.floor((x - this.pos.left)/(ROAD_WIDTH/this.GRID_WIDTH)), Math.floor((y-this.pos.top)/(ROAD_WIDTH/this.GRID_WIDTH))];
-		console.log(a)
-		return a;
+		let xIndex, yIndex;
+
+		if (x - this.pos.left >= ROAD_WIDTH || x - this.pos.left <= 0
+			|| y - this.pos.top >= ROAD_WIDTH || y - this.pos.top <= 0) {
+			// not in intersection
+				return false;
+		} else {
+			xIndex = Math.floor((x - this.pos.left)/(ROAD_WIDTH/this.GRID_WIDTH));
+			yIndex = Math.floor((y - this.pos.top)/(ROAD_WIDTH/this.GRID_WIDTH));
+		}
+		// console.log(xIndex, yIndex)
+		return [xIndex, yIndex];
+	}
+
+	carPosToGridIndeces(x, y, car) {
+		let maxX, maxY;
+		if (car.getDirection()[0]) {
+			// car moving east/west
+			maxX = x + CAR_LENGTH;
+			maxY = y + CAR_WIDTH;
+		} else {
+			// north/south
+			maxX = x + CAR_WIDTH;
+			maxY = y + CAR_LENGTH;
+		}
+		return this.smooth(this.carPosToGridIndex(x, y),
+					  	   this.carPosToGridIndex(maxX, maxY))
+	}
+
+	advanceFrame() {		
+		let yArr = [];
+		for (let j=0; j<this.GRID_WIDTH; j++) {
+			let zArr = [];
+			for (let k=0; k<this.GRID_WIDTH; k++) {
+				zArr.push(0)
+			}
+			yArr.push(zArr);
+		}
+
+		this.futureArr.push(yArr);
+		this.futureArr.shift();
 	}
 }
+
+// coordinate system wrong

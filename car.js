@@ -2,7 +2,7 @@ const CAR_WIDTH = 25;
 const CAR_LENGTH = 50;
 
 class Car {
-  constructor(pos, speed) {
+  constructor(source, speed) {
     this.POS_DICT = {
       'N': [ WIDTH/2 - DOT_WIDTH/2 - ((ROAD_WIDTH - DOT_WIDTH)/2 - CAR_WIDTH)/2 - CAR_WIDTH, get_y(HEIGHT)],
       'S': [ WIDTH/2 + DOT_WIDTH/2 +((ROAD_WIDTH - DOT_WIDTH)/2 - CAR_WIDTH)/2, get_y(CAR_LENGTH)],
@@ -21,19 +21,22 @@ class Car {
       'N': [0,1],
       'S': [0,-1]
     }
-
-    this.xpos = this.POS_DICT[pos][0];
-    this.ypos = this.POS_DICT[pos][1];
-    this.direction = this.DIR_DICT[pos];
-    this.MAX_SPEED = 4;
+    this.xpos = this.POS_DICT[source][0];
+    this.ypos = this.POS_DICT[source][1];
+    this.direction = this.DIR_DICT[source];
+    this.MAX_SPEED = speed;
     //this.ypos = random(height);
     this.speed = this.MAX_SPEED;
-    this.color = color(random(0,255),random(150,255),random(150,255));
-    this.height = this.SIZE_DICT[pos][0];
-    this.width = this.SIZE_DICT[pos][1];
+    this.color = color(255,180,0);
+    this.height = this.SIZE_DICT[source][0];
+    this.width = this.SIZE_DICT[source][1];
 
     this.hasRequestedReservation = false;
 
+  }
+
+  getDirection() {
+    return this.direction;
   }
   
   stop() {
@@ -62,21 +65,10 @@ class Car {
     return {
       "left": this.xpos,
       "right": this.xpos + this.width,
-      "top": get_y(this.ypos),
-      "bottom": get_y(this.ypos + this.height)
+      "top": this.ypos,
+      "bottom": this.ypos + this.height
     }
   }
- 
-  // // brake method
-  // this.brake = function()
-  // {
-  //   if(this.speed > 0)
-  //   {
-  //     this.speed = this.speed - 0.3;
-  //   } else {
-  //     this.speed = 0;
-  //   }        
-  // }
  
   display() {
     // body of the car
@@ -88,13 +80,13 @@ class Car {
   requestReservation(requester) {
     this.hasRequestedReservation = true;
     let futurePositions = this.calculateFuturePositions();
-    requester.request(this, futurePositions);
-    return false;
+    let reservationResponse = requester.request(this, futurePositions);
+    return reservationResponse;
   }
 
   calculateFuturePositions() {
     let positions = [];
-    let numFrames = (ROAD_WIDTH+CAR_LENGTH)/this.speed;
+    let numFrames = Math.floor((ROAD_WIDTH+CAR_LENGTH)/this.speed);
     
     let futureXPos = this.xpos;
     let futureYPos = this.ypos;
@@ -104,5 +96,9 @@ class Car {
       positions.push([futureXPos, futureYPos]);
     }
     return positions;
+  }
+
+  setColor(color) {
+    this.color = color
   }
 }
