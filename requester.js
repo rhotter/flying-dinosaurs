@@ -97,7 +97,7 @@ class Requester {
 					  	   this.carPosToGridIndex(maxX, maxY))
 	}
 
-	advanceFrame() {		
+	shiftArr() {
 		let yArr = [];
 		for (let j=0; j<this.GRID_WIDTH; j++) {
 			let zArr = [];
@@ -109,6 +109,21 @@ class Requester {
 
 		this.futureArr.push(yArr);
 		this.futureArr.shift();
+	}
+
+	advanceFrame() {
+		this.shiftArr();
+		let i=0;
+		while (i<this.futureRequests.length) {
+			if (this.checkRoute(this.futureRequests[i]["futurePositions"], this.futureRequests[i]["car"])) {
+				this.fillFutureArr(this.futureRequests[i]["futurePositions"], this.futureRequests[i]["car"]);
+				this.futureRequests[i]["car"].go();
+				this.futureRequests.splice(i,1);
+			} else {
+				i++;
+			}
+		}
+		
 	}
 }
 
