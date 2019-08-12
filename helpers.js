@@ -35,7 +35,6 @@ function drawRoads() {
     }
 }
 
-
 function intersect(a, b) {
   aPos = a.getPosition();
   bPos = b.getPosition();

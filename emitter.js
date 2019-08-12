@@ -3,7 +3,7 @@ class Emitter {
         this.direction = dir;
         this.cars = [];
         this.carSpeed = carSpeed;
-        this.MIN_WAIT_TIME = (3/2*CAR_LENGTH)/this.carSpeed;
+        this.MIN_WAIT_TIME = 3/2*CAR_LENGTH/this.carSpeed;
         this.waitTime = this.MIN_WAIT_TIME;
         this.requester = requester;
     }
@@ -37,8 +37,8 @@ class Emitter {
     atIntersection(){
         for (let i=0; i<this.cars.length; i++) {
             if (this.cars[i].isAtIntersection(this.requester) && !this.cars[i].hasRequestedReservation){
-                let reservationResponse = this.cars[i].requestReservation(this.requester);
-                if (!reservationResponse) {
+                let canGo = this.cars[i].requestReservation(this.requester);
+                if (!canGo) {
                     this.cars[i].stop();
                 }
             }
