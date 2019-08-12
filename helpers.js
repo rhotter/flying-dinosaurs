@@ -4,7 +4,7 @@ const DOT_LENGTH = 10;
 const DOT_WIDTH = 5;
 const WIDTH = 1200;
 const HEIGHT = 700;
-const MAX_SPEED = 4;
+const MAX_SPEED = 8;
 
 function get_y(y) {
     return HEIGHT - y;

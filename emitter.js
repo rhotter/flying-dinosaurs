@@ -32,7 +32,7 @@ class Emitter {
     }
 
     randomWaitTime() {
-        return -int(random(0,150)/this.carSpeed);
+        return -int(random(0,500)/this.carSpeed);
     }
 
     atIntersection() {

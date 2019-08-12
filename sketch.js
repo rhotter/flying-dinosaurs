@@ -14,7 +14,7 @@ function setup() {
   for (let i = 0; i < dirs.length; i++) {
     emitters.push(new Emitter(dirs[i], requester, MAX_SPEED));
   }
-  frameRate(30)
+  frameRate(60)
 }
 
 function draw() {
@@ -29,3 +29,11 @@ function draw() {
   }
   crashCheck(emitters);
 }
+
+/*
+OBSERVATIONS:
+1. It's basically a stop sign
+2. No stoppage at intersection
+3. I wonder if you could calculate the critical point where car volume to intersection area ratio is too large
+4. You could plot average wait time as a function of car volume
+*/

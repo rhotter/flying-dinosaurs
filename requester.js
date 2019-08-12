@@ -5,6 +5,7 @@ class Requester {
 		this.GRID_WIDTH = 16;
 		this.futureArr = this.initZeros(this.NUM_FRAMES, this.GRID_WIDTH, this.GRID_WIDTH);
 		this.futureRequests = [];
+		this.CAR_BUFFER = 4;
 	}
 	getPosition() {
 		return this.pos;
@@ -91,10 +92,10 @@ class Requester {
 		} else {
 			// north/south
 			maxX = x + CAR_WIDTH;
-			maxY = y + CAR_LENGTH;
+			maxY = y + CAR_LENGTH ;
 		}
-		return this.smooth(this.carPosToGridIndex(x, y),
-					  	   this.carPosToGridIndex(maxX, maxY))
+		return this.smooth(this.carPosToGridIndex(x - this.CAR_BUFFER/2, y - this.CAR_BUFFER/2),
+					  	   this.carPosToGridIndex(maxX + this.CAR_BUFFER/2, maxY + this.CAR_BUFFER/2))
 	}
 
 	shiftArr() {
