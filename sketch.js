@@ -1,6 +1,6 @@
 
 let emitters = [];
-const dirs = ['N','S','E', 'W'];
+const dirs = ['N','S','E','W'];
 
 let requester = new Requester({
     "left": WIDTH/2 - ROAD_WIDTH/2,
@@ -24,6 +24,7 @@ function draw() {
     emitters[i].randomEmit();
     emitters[i].driveAll();
     emitters[i].atIntersection();
+    emitters[i].checkForSafetyDistance();
     emitters[i].displayAll();
   }
   crashCheck(emitters);
