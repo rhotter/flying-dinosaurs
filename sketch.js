@@ -36,4 +36,5 @@ OBSERVATIONS:
 2. No stoppage at intersection
 3. I wonder if you could calculate the critical point where car volume to intersection area ratio is too large
 4. You could plot average wait time as a function of car volume
+5. If car speeds are very high (well I really mean the car volume), then this algorithm is near optimal
 */
